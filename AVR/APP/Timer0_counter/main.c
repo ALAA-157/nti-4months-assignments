@@ -15,16 +15,22 @@
 #include "dio.h"
 #include <avr/delay.h>
 #include "ssd.h"
-
+#include "lcd.h"
 
 int main(void)
 {
-	ssd_vidInit();
+	//ssd_vidInit();
+	dio_vidConfigChannel(DIO_PORTB,0,INPUT);
+	lcd_init();
+	LCD_clearScreen();
 	TIMER0_void_Init();
     /* Replace with your application code */
     while (1) 
     {
-		SSD_DisplayNum((u16)TIMER0_Get_Counts());
+		LCD_DisplayNumber((u16)TIMER0_Get_Counts());
+		_delay_ms(500);
+		LCD_clearScreen();
+		//SSD_DisplayNum();
     }
 }
 
